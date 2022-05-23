@@ -1,0 +1,29 @@
+{
+  "name": "@luckyboyz/codemirror6",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000C\u0000o\u0000d\u0000e\u0000M\u0000i\u0000r\u0000r\u0000o\u0000r\u00006\u0000-\u0000p\u0000a\u0000c\u0000k\u0000a\u0000g\u0000e\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/rollup editor.js -f iife -o editor.bundle.js -p @rollup/plugin-node-resolve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasCourteaud/CodeMirror6-package.git"
+  },
+  "author": "lucas courteaud",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasCourteaud/CodeMirror6-package/issues"
+  },
+  "homepage": "https://github.com/LucasCourteaud/CodeMirror6-package#readme",
+  "dependencies": {
+    "@codemirror/basic-setup": "^0.20.0",
+    "@codemirror/lang-css": "^0.20.0",
+    "@codemirror/lang-html": "^0.20.0",
+    "@codemirror/lang-javascript": "^0.20.0",
+    "@codemirror/lang-php": "^0.20.0",
+    "@codemirror/legacy-modes": "^0.20.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "rollup": "^2.74.1"
+  }
+}
