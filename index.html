@@ -1,4 +1,17 @@
 <!doctype html>
 <meta charset=utf8>
 <h1>CodeMirror!</h1>
+<div id="test" style="width: 500px; height: 300px"></div>
 <script src="editor.component.js"></script>
+<script>
+  new codemirror.EditorView({
+    state: codemirror.EditorState.create({
+      extensions: [
+        codemirror.basicSetup,
+        codemirror.languageConf.of(codemirror.javascript()),
+        codemirror.autoLanguage
+    ]
+    }),
+    parent: document.getElementById('test')
+  });
+</script>
