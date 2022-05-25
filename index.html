@@ -8,8 +8,7 @@
     state: codemirror.EditorState.create({
       extensions: [
         codemirror.basicSetup,
-        codemirror.languageConf.of(codemirror.javascript()),
-        codemirror.autoLanguage
+        codemirror.css()
     ]
     }),
     parent: document.getElementById('test')
