@@ -4,12 +4,18 @@
 <div id="test" style="width: 500px; height: 300px"></div>
 <script src="editor.component.js"></script>
 <script>
-  new codemirror.EditorView({
-    state: codemirror.EditorState.create({
+  new codemirror6.EditorView({
+    state: codemirror6.EditorState.create({
       extensions: [
-        codemirror.basicSetup,
-        codemirror.css()
-    ]
+        codemirror6.history(),
+        //codemirror6.indentOnInput(),
+        codemirror6.keymap.of([
+          ...codemirror6.defaultKeymap,
+          ...codemirror6.historyKeymap,
+        ]),
+        ...codemirror6.languageExtensions['javascript'],
+        //...codemirror6.themeExtensions['dark'],
+      ]
     }),
     parent: document.getElementById('test')
   });
