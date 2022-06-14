@@ -3,11 +3,9 @@ import {
   keymap,
 } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import { history, historyKeymap } from '@codemirror/commands'
-import { indentOnInput, LanguageSupport } from '@codemirror/language'
-import { defaultKeymap } from '@codemirror/commands'
+import { history, historyKeymap, defaultKeymap } from '@codemirror/commands'
+import { indentOnInput, LanguageSupport, defaultHighlightStyle } from '@codemirror/language'
 import { javascriptLanguage } from '@codemirror/lang-javascript'
-import { defaultHighlightStyle } from '@codemirror/language'
 import {
   oneDarkTheme,
   oneDarkHighlightStyle
