@@ -3,12 +3,15 @@ import {
   keymap,
 } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import { history, historyKeymap } from '@codemirror/history'
+import { history, historyKeymap } from '@codemirror/commands'
 import { indentOnInput, LanguageSupport } from '@codemirror/language'
 import { defaultKeymap } from '@codemirror/commands'
 import { javascriptLanguage } from '@codemirror/lang-javascript'
 import { defaultHighlightStyle } from '@codemirror/highlight'
-import { oneDarkTheme, oneDarkHighlightStyle } from '@codemirror/theme-one-dark'
+import {
+  oneDarkTheme,
+  oneDarkHighlightStyle
+} from '@codemirror/theme-one-dark'
 
 const languageExtensions = {
     javascript: [new LanguageSupport(javascriptLanguage)],
@@ -24,7 +27,7 @@ window.codemirror6 = {
     themeExtensions: themeExtensions,
     EditorState: EditorState,
     EditorView: EditorView,
-    history: [history, historyKeymap],
+    history: history,
     indentOnInput: indentOnInput,
     keymap: keymap,
     defaultKeymap: defaultKeymap,
