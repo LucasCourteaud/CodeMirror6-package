@@ -1,22 +1,61 @@
 <!doctype html>
-<meta charset=utf8>
-<h1>CodeMirror!</h1>
-<div id="test" style="width: 500px; height: 300px"></div>
-<script src="editor.component.js"></script>
+<html>
+  <head>
+    <script src="editor.component.js"></script>
+    <meta charset=utf8>
+    <style>
+      .cm-editor {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>CodeMirror!</h1>
+
+  <div id="test" style="margin-top: 2em; width: 100%; height: 300px"></div>
+
 <script>
-  new codemirror6.EditorView({
-    state: codemirror6.EditorState.create({
-      extensions: [
-        codemirror6.history(),
-        //codemirror6.indentOnInput(),
-        codemirror6.keymap.of([
-          ...codemirror6.defaultKeymap,
-          ...codemirror6.historyKeymap,
-        ]),
-        ...codemirror6.languageExtensions['javascript'],
-        //...codemirror6.themeExtensions['dark'],
-      ]
-    }),
-    parent: document.getElementById('test')
-  });
+  (function() {
+    let cm = window.codemirror6;
+    cm.getBasicExtensions();
+    function getExtensions(cfg) {
+      if (!cfg || !cfg.language) {
+        throw new Error("You must provide a language");
+      }
+      if (!cm.languageExtensions[cfg.language]) {
+        throw new Error("Unknown language");
+      }
+      if (!cm.themeExtensions[cfg.theme]) {
+        throw new Error("Unknown theme");
+      }
+
+      let extensions = [];
+      for (let n in cm.ext) {
+        extensions.push(cm.ext[n]);
+      }
+      extensions.push(cm.languageExtensions[cfg.language]);
+      extensions.push(cm.themeExtensions[cfg.theme]);
+      return extensions;
+    }
+
+    let extensions = getExtensions({language: 'javascript', theme: 'basicLight'});
+    let editorStateCfg = {
+      doc: `function calcRectArea(width, height) {
+  return width * height;
+}
+
+console.log(calcRectArea(5, 6));
+// expected output: 30
+
+`,
+      extensions: extensions
+    };
+    let editorView = new cm.view.EditorView({
+      state: cm.state.EditorState.create(editorStateCfg),
+      parent: document.getElementById('test')
+    });
+  })();
 </script>
+
+</body>
+</html>
