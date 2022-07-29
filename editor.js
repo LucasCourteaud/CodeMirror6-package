@@ -26,9 +26,10 @@ const languageExtensions = {
     javascript: [new language.LanguageSupport(javascript.javascriptLanguage)],
     html: [new language.LanguageSupport(html.htmlLanguage)],
     css: [new language.LanguageSupport(css.cssLanguage)],
-    php: [php.php()],
+    php: [new language.LanguageSupport(php.phpLanguage)],
+    xml: [new language.LanguageSupport(xml.xmlLanguage)],
     json: [new language.LanguageSupport(json.jsonLanguage)],
-    sql: [language.StreamLanguage.define(sql.mySQL)],
+    sql: [new language.StreamLanguage(sql.mySQL)],
     md: [new language.LanguageSupport(markdown.markdownLanguage)],
 }
   
@@ -89,7 +90,8 @@ window.codemirror6 = {
           ...cm.commands.historyKeymap,
           ...cm.language.foldKeymap,
           ...cm.autocomplete.completionKeymap,
-          ...cm.lint.lintKeymap
+          ...cm.lint.lintKeymap,
+          cm.commands.indentWithTab
         ]),
       };
     }

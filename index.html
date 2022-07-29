@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <script src="editor.component.js"></script>
+    <script src="cm.js"></script>
     <meta charset=utf8>
     <style>
       .cm-editor {
@@ -13,17 +13,39 @@
   <h1>CodeMirror!</h1>
 
   <div id="test" style="margin-top: 2em; width: 100%; height: 300px"></div>
+  <div id="test2" style="margin-top: 2em; width: 100%; height: 300px"></div>
+  <div id="test3" style="margin-top: 2em; width: 100%; height: 300px"></div>
+  <div id="test4" style="margin-top: 2em; width: 100%; height: 300px"></div>
+  <div id="test5" style="margin-top: 2em; width: 100%; height: 300px"></div>
+  <div id="test6" style="margin-top: 2em; width: 100%; height: 300px"></div>
+  <div id="test7" style="margin-top: 2em; width: 100%; height: 300px"></div>
+  <div id="test8" style="margin-top: 2em; width: 100%; height: 300px"></div>
+
 
 <script>
   (function() {
+    let myCompletion = function(context) {
+    console.log(context);
+    return {
+      from: context.pos,
+      options: [
+        {label: "match", type: "keyword"},
+        {label: "hello", type: "variable", info: "Hello<br>World"},
+        {label: "baba", type: "function", info: "Hello<br>World"},
+        {label: "magic", type: "text", apply: "⠁⭒*.✩.*⭒⠁", detail: "Hello World"}
+      ],
+      filter: false,
+    };
+    }
     let cm = window.codemirror6;
     cm.getBasicExtensions();
+    
     function getExtensions(cfg) {
       if (!cfg || !cfg.language) {
         throw new Error("You must provide a language");
       }
       if (!cm.languageExtensions[cfg.language]) {
-        throw new Error("Unknown language");
+        throw new Error("Unknown language : " + cfg.language);
       }
       if (!cm.themeExtensions[cfg.theme]) {
         throw new Error("Unknown theme");
@@ -33,12 +55,66 @@
       for (let n in cm.ext) {
         extensions.push(cm.ext[n]);
       }
+      // Functions.codeMirrorAutoCompleteOnInputRead (PhpMyAdmin - https://db.bbn.io/mysql/js/dist/console.js?v=5.1.3)
       extensions.push(cm.languageExtensions[cfg.language]);
-      extensions.push(cm.themeExtensions[cfg.theme]);
+      extensions.push(cm.themeExtensions['basicDark']);
+      switch (cfg.language) {
+        case "javascript":
+          extensions.push(cm.javascript.javascript());
+          break;
+        case "html":
+          myTags = {
+            'bbn-dropdown': {
+              attrs: {
+                toto: {
+                  info: 'Test'
+                } 
+              }
+            },
+            'bbn-list': {
+              attrs: {
+                href: null, ping: null, type: null,
+                media: null,
+                target: null,
+                hreflang: null
+              },
+            },
+          }
+          let ec = cm.html.htmlCompletionSourceWith({
+            extraTags: myTags,
+            extraGlobalAttributes: null
+          });
+          extensions.push(cm.autocomplete.autocompletion({override: [ec]}));
+          extensions.push(cm.html.html());
+          break;
+        case "php": 
+          extensions.push(cm.php.php());
+          break;
+        case "css": 
+          extensions.push(cm.css.css());
+          break;
+        case "json": 
+          extensions.push(cm.json.json());
+          break;
+        case "xml": 
+          extensions.push(cm.xml.xml());
+          break;
+        case "md": 
+          extensions.push(cm.markdown.markdown());
+          break;
+      }
       return extensions;
     }
 
     let extensions = getExtensions({language: 'javascript', theme: 'basicLight'});
+    let extensions2 = getExtensions({language: 'html', theme: 'basicLight'});
+    let extensions3 = getExtensions({language: 'php', theme: 'basicLight'});
+    let extensions4 = getExtensions({language: 'css', theme: 'basicLight'});
+    let extensions5 = getExtensions({language: 'json', theme: 'basicLight'});
+    let extensions6 = getExtensions({language: 'xml', theme: 'basicLight'});
+    let extensions7 = getExtensions({language: 'md', theme: 'basicLight'});
+    let extensions8 = getExtensions({language: 'sql', theme: 'basicLight'});
+
     let editorStateCfg = {
       doc: `function calcRectArea(width, height) {
   return width * height;
@@ -46,16 +122,108 @@
 
 console.log(calcRectArea(5, 6));
 // expected output: 30
-
 `,
       extensions: extensions
+    };
+    let editorStateCfg2 = {
+      doc: `<div>Hello World</div>
+`,
+      extensions: extensions2
+    };
+    let editorStateCfg3 = {
+      doc: `<?php
+$hello = 2
+$world = 3
+$bonjour = $hello + $world
+`,
+      extensions: extensions3
+    };
+    let editorStateCfg4 = {
+      doc: `.odia-ai {
+  font-family: monospace;
+  .sub {
+    clear: both;
+    height: 2px;
+    margin-top: 1px;
+    &.neutral {
+      background-color: grey;
+    }
+  }
+}
+`,
+      extensions: extensions4
+    };
+    let editorStateCfg5 = {
+      doc: `{"menu": {
+  "id": "file",
+  "value": "File",
+  "popup": {
+    "menuitem": [
+      {"value": "New", "onclick": "CreateNewDoc()"},
+      {"value": "Open", "onclick": "OpenDoc()"},
+      {"value": "Close", "onclick": "CloseDoc()"}
+    ]
+  }
+}}`,
+      extensions: extensions5
+    };
+    let editorStateCfg6 = {
+      doc: `<note>
+<to>Tove</to>
+<from>Jani</from>
+<heading>Reminder</heading>
+<body>Don't forget me this weekend!</body>
+</note>
+`,
+      extensions: extensions6
+    };
+    let editorStateCfg7 = {
+      doc: `# The largest heading
+## The second largest heading
+###### The smallest heading
+`,
+      extensions: extensions7
+    };
+    let editorStateCfg8 = {
+      doc: `UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+`,
+      extensions: extensions8
     };
     let editorView = new cm.view.EditorView({
       state: cm.state.EditorState.create(editorStateCfg),
       parent: document.getElementById('test')
     });
+    let editorView2 = new cm.view.EditorView({
+      state: cm.state.EditorState.create(editorStateCfg2),
+      parent: document.getElementById('test2')
+    });
+    let editorView3 = new cm.view.EditorView({
+      state: cm.state.EditorState.create(editorStateCfg3),
+      parent: document.getElementById('test3')
+    });
+    let editorView4 = new cm.view.EditorView({
+      state: cm.state.EditorState.create(editorStateCfg4),
+      parent: document.getElementById('test4')
+    });
+    let editorView5 = new cm.view.EditorView({
+      state: cm.state.EditorState.create(editorStateCfg5),
+      parent: document.getElementById('test5')
+    });
+    let editorView6 = new cm.view.EditorView({
+      state: cm.state.EditorState.create(editorStateCfg6),
+      parent: document.getElementById('test6')
+    });
+    let editorView7 = new cm.view.EditorView({
+      state: cm.state.EditorState.create(editorStateCfg7),
+      parent: document.getElementById('test7')
+    });
+    let editorView8 = new cm.view.EditorView({
+      state: cm.state.EditorState.create(editorStateCfg8),
+      parent: document.getElementById('test8')
+    });
   })();
 </script>
-
 </body>
 </html>
