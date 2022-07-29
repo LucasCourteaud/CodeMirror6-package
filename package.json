@@ -17,22 +17,22 @@
   },
   "homepage": "https://github.com/LucasCourteaud/CodeMirror6-package#readme",
   "dependencies": {
-    "@codemirror/autocomplete": "^6.0.*",
-    "@codemirror/commands": "^6.0.*",
+    "@codemirror/autocomplete": "^6.1.0",
+    "@codemirror/commands": "^6.0.1",
     "@codemirror/lang-css": "^6.0.*",
     "@codemirror/lang-html": "^6.1.0",
-    "@codemirror/lang-javascript": "^6.0.*",
+    "@codemirror/lang-javascript": "^6.0.2",
     "@codemirror/lang-json": "^6.0.*",
-    "@codemirror/lang-markdown": "^6.0.*",
+    "@codemirror/lang-markdown": "^6.0.1",
     "@codemirror/lang-php": "^6.0.*",
     "@codemirror/lang-xml": "^6.0.*",
-    "@codemirror/language": "^6.0.*",
+    "@codemirror/language": "^6.2.1",
     "@codemirror/legacy-modes": "^6.0.*",
     "@codemirror/lint": "^6.0.*",
-    "@codemirror/search": "^6.0.*",
-    "@codemirror/state": "^6.0.*",
+    "@codemirror/search": "^6.0.1",
+    "@codemirror/state": "^6.1.0",
     "@codemirror/theme-one-dark": "^6.0.*",
-    "@codemirror/view": "^6.0.*",
+    "@codemirror/view": "^6.1.2",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "cm6-theme-basic-light": "^0.2.0",
     "cm6-theme-gruvbox-dark": "^0.2.0",
@@ -42,6 +42,6 @@
     "cm6-theme-solarized-dark": "^0.2.0",
     "cm6-theme-solarized-light": "^0.2.0",
     "eslint4b-prebuilt": "^6.7.2",
-    "rollup": "^2.74.1"
+    "rollup": "^2.77.2"
   }
 }
